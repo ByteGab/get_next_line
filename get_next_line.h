@@ -6,7 +6,7 @@
 /*   By: gafreire <gafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:19:28 by gafreire          #+#    #+#             */
-/*   Updated: 2024/11/27 02:21:16 by gafreire         ###   ########.fr       */
+/*   Updated: 2024/11/27 21:47:17 by gafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #  define BUFFER_SIZE 18
 # endif
 
+# include <stdlib.h>
 # include <unistd.h>
 
 int		get_next_line(int fd);
