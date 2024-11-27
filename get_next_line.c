@@ -6,11 +6,15 @@
 /*   By: gafreire <gafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:52:08 by gafreire          #+#    #+#             */
-/*   Updated: 2024/11/19 17:00:55 by gafreire         ###   ########.fr       */
+/*   Updated: 2024/11/27 03:13:34 by gafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int get_next_line(fd)
+int get_next_line(int fd)
 {
+    // open
+    open("",O_READ)
+    // read
+    ssize_t read(int fd, void *buf,size_t count);
     
 }
