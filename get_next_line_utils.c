@@ -6,7 +6,7 @@
 /*   By: gafreire <gafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:52:11 by gafreire          #+#    #+#             */
-/*   Updated: 2024/11/27 02:28:29 by gafreire         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:21:22 by gafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (mem);
 }
 char	*ft_strdup(const char *s)
-{
+{ 
 	char	*mem;
 	size_t	size;
 
