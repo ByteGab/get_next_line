@@ -6,7 +6,7 @@
 /*   By: gafreire <gafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:52:11 by gafreire          #+#    #+#             */
-/*   Updated: 2024/12/02 18:21:22 by gafreire         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:40:32 by gafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,28 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	size;
 	char	*mem;
+	int			i;
+	int			j;
 
 	size = ft_strlen(s1) + ft_strlen(s2);
 	mem = (char *)malloc(size + 1);
 	if (mem == NULL)
 		return (NULL);
-	ft_strlcpy(mem, s1, ft_strlen(s1) + 1);
-	ft_strlcat(mem, s2, size + 1);
+	i = 0;
+	while (s1 && s1[i] != '\0')
+	{
+		mem[i] = s1[i];
+		i++;
+	}
+	j = i;
+	i = 0;
+	while (s2 && s2[i] != '\0')
+	{
+		mem[j] = s2[i];
+		j++;
+		i++;
+	}
+	mem[j] = '\0';
 	return (mem);
 }
 char	*ft_strdup(const char *s)
