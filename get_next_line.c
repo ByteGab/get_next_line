@@ -6,7 +6,7 @@
 /*   By: gafreire <gafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:52:08 by gafreire          #+#    #+#             */
-/*   Updated: 2024/11/27 21:47:30 by gafreire         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:01:02 by gafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,28 @@ char    *line(char *buffer, int fd)
     }
     buffer = ft_strlen(buffer) - ft_strlen(linea);
 }
-
-int get_next_line(int fd)
+char    *read_file()
 {
-        
+    
+}
+char    *left_lines()
+{
+    
+}
+
+char get_next_line(int fd)
+{
+    char    *line;
+    char    *box_lines;
+    
+    if (BUFFER_SIZE <= 0 || fd < 0)
+		return (NULL);
+    // box_lines = read_file;
+    if (!box_lines)
+        return(NULL);
+    // line = save_line;
+    // box_lines = save_lines;
+    return (line);
 }
 
 // int main ()
