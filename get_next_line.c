@@ -6,7 +6,7 @@
 /*   By: gafreire <gafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:52:08 by gafreire          #+#    #+#             */
-/*   Updated: 2024/12/15 20:31:05 by gafreire         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:50:10 by gafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,17 @@ char	*stash_filling(int fd, char *stash, char *buffer)
 	int	size;
 
 	size = 1;
-	if (!stash)
-		stash = ft_strdup("");
 	while (!ft_strchr(stash, '\n') && size > 0)
 	{
 		size = read(fd, buffer, BUFFER_SIZE);
-		if (size == -1)
-		{
-			free (buffer);
-			return (NULL);
-		}
+		if (size < 0)
+			return (free (buffer), free (stash), stash = NULL);
 		buffer[size] = '\0';
-		stash = ft_strjoin (stash, buffer);
+		stash = ft_strjoin(stash, buffer);
+		if (!stash)
+			return (free (buffer), NULL);
 	}
-	free (buffer);
-	return (stash);
+	return (free (buffer), stash);
 }
 
 char	*extract_new_stash(char	*stash)
@@ -50,7 +46,7 @@ char	*extract_new_stash(char	*stash)
 		len++;
 	new_stash = malloc((ft_strlen(stash) - len + 1) * sizeof(char));
 	if (!new_stash)
-		return (NULL);
+		return (free (stash), NULL);
 	while (stash[len + i])
 	{
 		new_stash[i] = stash[len + i];
@@ -61,10 +57,11 @@ char	*extract_new_stash(char	*stash)
 	return (new_stash);
 }
 
-char	*extract_line(char *stash, char *line)
+char	*extract_line(char *stash)
 {
-	int	len;
-	int	i;
+	int		len;
+	int		i;
+	char	*line;
 
 	len = 0;
 	i = 0;
@@ -74,6 +71,8 @@ char	*extract_line(char *stash, char *line)
 		len++;
 	if (stash[len] == '\n')
 		len++;
+	if (len == 0)
+		return (NULL);
 	line = malloc((len + 1) * sizeof(char));
 	if (!line)
 		return (NULL);
@@ -85,39 +84,47 @@ char	*extract_line(char *stash, char *line)
 	line[i] = 0;
 	return (line);
 }
+
 char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*line;
 	char		*buffer;
 
-	line = NULL;
-	buffer = (char *)malloc((BUFFER_SIZE + 1));
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		free(stash);
-		free(buffer);
-		stash = NULL;
-		buffer = NULL;
-		return (NULL);
+		return (stash = NULL);
 	}
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (NULL);
+		return (free(stash), stash = NULL);
 	stash = stash_filling(fd, stash, buffer);
-	if (*stash == 0)
-	{
-		free (stash);
-		return (stash = 0);
-	}
-	line = extract_line(stash, line);
+	if (stash == NULL)
+		return (NULL);
+	line = extract_line(stash);
+	if (!line)
+		return (free (stash), stash = NULL);
 	stash = extract_new_stash(stash);
+	if (!stash)
+		return (free (line), NULL);
+	if (*stash == '\0')
+		return (free(stash), stash = NULL, line);
 	return (line);
 }
+
 /*int main(void)
 {
 	int	fd;
-
+	char	*line;
+	
 	fd = open("text.txt", O_RDONLY);
-	printf("GNL 9: %s", get_next_line(fd));
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
 	close(fd);
-} */
+}*/
