@@ -6,13 +6,13 @@
 /*   By: gafreire <gafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:52:11 by gafreire          #+#    #+#             */
-/*   Updated: 2024/12/15 19:34:01 by gafreire         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:31:52 by gafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -20,19 +20,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
+	if (!s1)
+		return (ft_strdup(s2));
 	tab = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!tab)
-		return (NULL);
+		return (free(s1), NULL);
 	while (s1[i])
 		tab[j++] = s1[i++];
 	i = 0;
 	while (s2[i])
 		tab[j++] = s2[i++];
 	tab[j] = 0;
-	free ((void *)(s1));
+	free (s1);
 	return (tab);
 }
-size_t	ft_strlen(const char *s)
+
+size_t	ft_strlen(char *s)
 {
 	size_t	i;
 
@@ -43,11 +46,14 @@ size_t	ft_strlen(const char *s)
 	}
 	return (i);
 }
-char	*ft_strchr(const char *s, int c)
+
+char	*ft_strchr(char *s, int c)
 {
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (s[i] != '\0')
 	{
 		if (s[i] == (unsigned char)c)
@@ -58,30 +64,8 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (NULL);
 }
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	size_t	size;
-	char	*mem;
 
-	size = ft_strlen(s);
-	if (start >= size)
-		return (ft_strdup(""));
-	if ((size - start) < len)
-		len = size - start;
-	mem = (char *)malloc(len + 1);
-	if (mem == NULL)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		mem[i] = s[start + i];
-		i++;
-	}
-	mem[i] = '\0';
-	return (mem);
-}
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	char	*mem;
 	size_t	size;
