@@ -6,7 +6,7 @@
 /*   By: gafreire <gafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:19:28 by gafreire          #+#    #+#             */
-/*   Updated: 2024/12/16 14:40:06 by gafreire         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:18:55 by gafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # include <stdio.h>
 
 char	*get_next_line(int fd);
-char	*stash_filling(int fd, char *stash, char *buffer);
-char	*extract_line(char *stash);
-char	*extract_new_stash(char *stash);
+char	*read_newline(int fd, char *line_buffer, char *buffer);
+char	*extract_new_line(char *line_buffer);
+char	*extract_remaining(char *line_buffer);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
 char	*ft_strdup(char *s1);
